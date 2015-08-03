@@ -13,8 +13,10 @@ y = [] #output list
 
 data_file = open('train.csv', 'r') #open file
 lineIn = data_file.readline() #get rid of the header in the file
+i = 0
 while True: #read until null
     lineIn = data_file.readline()
+    print lineIn
     if lineIn == '':
         break
     #parse the line
@@ -41,13 +43,14 @@ y = np.array([y])
 np.random.seed(1)
 
 # randomly initialize weights with mean 0
-syn0 = 2*np.random.random((len(x[0]),len(x))) - 1
-syn1 = 2*np.random.random((len(x),10)) - 1
+syn0 = 2*np.random.random((len(x[0][0]),len(x[0]))) - 1
+syn1 = 2*np.random.random((len(x[0]),10)) - 1
 
+print "training network"
 for j in xrange(60000):
 
 	# Feed forward through layers 0, 1, and 2
-    l0 = X
+    l0 = x
     l1 = nonlin(np.dot(l0,syn0))
     l2 = nonlin(np.dot(l1,syn1))
 
@@ -77,5 +80,3 @@ l0 = X
 l1 = nonlin(np.dot(l0,syn0))
 l2 = nonlin(np.dot(l1,syn1))
 
-for i in l2:
-	print str(round(i))
